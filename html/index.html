@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<button id="button">sdfsd</button>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link href="../css/main.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <custom-input name="비번"></custom-input>
+    <input type="range">
+    <div id="mordor">zzzz</div>
+    <label>shadow dom 분리</label>
+
+    <template id="template1">
+        <label>ㅎㅇㅎzzㅇ</label>
+        <style>label { color : red }</style>
+    </template>
+
+    <script>
+
+        // var product1 = {
+        //     name: 'shirts ',
+        //     price: 30000,
+        //     부가세() {
+        //         this.price = this.price + 0.1 * this.price;
+        //         console.log(this.price)
+        //     }
+        // }
+        // var product2 = {
+        //     name: 'pants',
+        //     price: 60000,
+        //     부가세() {
+        //         this.price = this.price + 0.1 * this.price;
+        //         console.log(this.price)
+        //     }
+        // }
+
+        // function Product(name, price) {
+        //     this.name = name;
+        //     this.price = price + 0.1 * price
+        //     console.log(this.name + '의 가격은 ' + this.price)
+        // }
+
+        // Product('꽃', 2000)
+
+        // var product3 = new Product('샤프', 200)
+        // product1.부가세()
+
+        // Product.prototype.gender = '남';
+
+
+        // var 부모 = { name : 'Kim'}
+        // var 자식 = {};
+
+        // 자식.__proto__ = 부모;
+
+
+        class 할아버지 {
+            constructor(name, name2) {
+                this.성 = '류'
+                this.이름 = name;
+                this.이름2 = name2;
+            }
+
+            sayhi() {
+                console.log('안녕')
+            }
+        }
+
+        // var 할아버지1 = new 할아버지('종덕')
+
+        class 아버지 extends 할아버지 {
+            constructor(name, name2) {
+                super(name, name2);
+                this.나이 = 50;
+            }
+            sayhi() {
+                console.log('안녕 난 아버지')
+                super.sayhi();
+            }
+        }
+
+        class 나 extends 아버지 {
+            constructor(name, name2) {
+                super(name, name2);
+                this.성별 = '남자'
+            }
+        }
+
+        class 아들 extends 나 {
+            constructor(name,name2){
+                super(name , name2);
+                this.학교 = '동대부고';
+            }
+        }
+
+        var 아버지1 = new 아버지('종덕2');
+        var 나1 = new 나('베이비 종덕', '베이비 종덕2')
+
+
+        // function Dog(type, color){
+        //     this.type = type;
+        //     this.color = color;
+        // }
+
+        class 강아지 {
+            constructor(type, color) {
+                this.type = type;
+                this.color = color;
+            }
+            한살먹기() {
+                this.age = this.age + 1;
+            }
+        }
+
+        var 강아지1 = new 강아지('말티즈 ', 'white')
+
+        class 고양이 extends 강아지 {
+            constructor(type, color, age) {
+                super(type, color);
+                this.age = age;
+            }
+
+        }
+
+        var 고양이1 = new 고양이('러시안블루', 'brown', 2)
+
+        class Unit {
+            constructor() {
+                this.공격력 = 5;
+                this.체력 = 100;
+            }
+
+            get betterPoint() {
+                return console.log(this.공격력 + this.체력);
+            }
+
+            set heal(amount) {
+                this.체력 = this.체력 + amount;
+            }
+        }
+
+        var 인스턴스 = new Unit();
+
+        var data = {
+            odd: [],
+            even: [],
+
+            set cal(number) {
+                if (number % 2 == 0) {
+                    this.even.push(number);
+                }
+
+                else {
+                    this.odd.push(number);
+                }
+            }
+        }
+
+        async function 클릭() {
+            var promiseTest = new Promise(function (resolve, reject) {
+                document.getElementById('button').addEventListener('click', function () {
+                    resolve('성공했다');
+                })
+            });
+
+            try {
+                var 결과 = await promiseTest;
+                console.log(결과);
+            }
+            catch {
+                console.log('실패했다')
+            }
+
+        }
+
+        클릭()
+
+        // function startAsync(age) {
+        //     return new Promise((resolve, reject) => {
+        //         if (age > 20) return resolve(`${age} success`);
+        //         else return reject(new Error(`${age} is not over 20`));
+        //         // throw Error('error');
+        //     });
+        // }
+
+        // setTimeout(() => {
+        //     const promise1 = startAsync(25);
+        //     promise1
+        //         .then((value) => {
+        //             console.log(value);
+        //         })
+        //         .catch((error) => {
+        //             console.error(error);
+        //         });
+        //     const promise2 = startAsync(15);
+        //     promise2
+        //         .then((value) => {
+        //             console.log(value);
+        //         })
+        //         .catch((error) => {
+        //             console.error(error);
+        //         });
+        // }, 1000);
+
+
+        async function startAsync(age) {
+            if (age > 20) return `${age} success`;
+            else throw new Error(`${age} is not over 20`);
+        }
+
+        async function startAsyncJobs() {
+            const promise1 = startAsync(25);
+            try {
+                const value = await promise1;
+                console.log(value);
+            }
+            catch (e) {
+                console.log(e);
+            }
+
+            const promise2 = startAsync(15);
+            try {
+                const value = await promise2;
+                console.log(value);
+            }
+            catch (e) {
+                console.log(e);
+            }
+        }
+
+        startAsyncJobs()
+
+        function setTimeoutPromise(ms) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => resolve(), ms);
+            });
+        }
+
+        async function fetchAge(id) {
+            console.log(`${id} 사원 데이터 받아오기 완료!`);
+            return parseInt(Math.random() * 20, 10) + 25;
+        }
+
+        async function startAsyncJobs() {
+            let promises = [];
+            for (let i = 0; i < 10; i++) {
+                promises.push(fetchAge(i));
+            }
+
+            let ages = await Promise.all(promises);
+            console.log(promises);
+            console.log(ages);
+            console.log(
+                `평균 나이는? ==> ${ages.reduce((prev, current) => prev + current, 0) / ages.length
+                }`
+            );
+        }
+
+        // startAsyncJobs();
+
+        var setTest = new Set(['류' , '종' , '덕'])        
+        setTest.add('닥');
+        console.log(setTest);
+        setTest.delete('닥');
+        console.log(setTest.has('덕'));
+
+        for(var a of setTest){
+            console.log(a);
+        }
+
+        class 클래스 extends HTMLElement{
+            connectedCallback(){
+                // let 변수 = documnet.createElement('label');
+                // this.appendChild(변수)
+
+                // let name = this.getAttribute('name');
+                // this.innerHTML = `<label>${name}ㅎㅇㅎzzㅇ</label>
+                // <style>label { color : red }></style>`
+
+                this.attachShadow({mode : 'open'});
+                this.shadowRoot.append(template1.content.cloneNode(true))
+                console.log(this.shadowRoot);
+            }
+            
+            static get observedAttributes(){
+                return ['name'];
+            }
+
+            attributeChangeCallback(){
+                console.log(this.getAttribute('name'))
+            }
+        }
+
+        customElements.define('custom-input' , 클래스);
+
+        document.querySelector('#mordor').attachShadow({mode : 'open'});
+        document.querySelector('#mordor').shadowRoot.innerHTML =
+        `<p>shadow do z m</p>`
+    </script>
+</body>
+
+</html>
